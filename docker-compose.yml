@@ -35,8 +35,7 @@ services:
     hostname: socket
     volumes:
       - ${PROJECT_ROOT}/websocket:/app
-      - ${PROJECT_ROOT}/logs:/var/www/html/pathfinder/history/map
-      - ${PROJECT_ROOT}/static/socket/logrotate:/etc/logrotate.d/pathfinder
+      - map_logs:/var/www/html/pathfinder/history/map
     networks:
       pf:
          aliases:
@@ -69,6 +68,8 @@ services:
       - ${PROJECT_ROOT}/config/pathfinder/config.ini:/var/www/html/pathfinder/app/templateConfig.ini
       - ${PROJECT_ROOT}/config/pathfinder/pathfinder.ini:/var/www/html/pathfinder/app/pathfinder.ini
       - ${PROJECT_ROOT}/config/pathfinder/plugin.ini:/var/www/html/pathfinder/app/plugin.ini
+      - map_logs:/var/www/html/pathfinder/history/map
+      - ${PROJECT_ROOT}/static/socket/logrotate:/etc/logrotate.d/pathfinder
     depends_on:
       - pfdb
       - pf-redis
@@ -105,6 +106,7 @@ volumes:
      data:
      db_data:
      redis_data:
+     map_logs:
 networks:
     pf:
     web:
